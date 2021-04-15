@@ -1,0 +1,6 @@
+--2021-04-15 13:39:07--  https://github-releases.githubusercontent.com/56899284/6ceefc00-90d4-11eb-81f0-e1d69aab0445?X-Amz-Algorithm=AWS4-HMAC-SHA256
+Resolving github-releases.githubusercontent.com (github-releases.githubusercontent.com)... 185.199.109.154, 185.199.110.154, 185.199.111.154, ...
+Connecting to github-releases.githubusercontent.com (github-releases.githubusercontent.com)|185.199.109.154|:443... connected.
+ERROR: cannot verify github-releases.githubusercontent.com's certificate, issued by ‘CN=Zscaler Intermediate Root CA (zscalerthree.net) (t)\\ ,OU=Zscaler Inc.,O=Zscaler Inc.,ST=California,C=US’:
+  Unable to locally verify the issuer's authority.
+To connect to github-releases.githubusercontent.com insecurely, use `--no-check-certificate'.

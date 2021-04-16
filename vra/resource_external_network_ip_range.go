@@ -15,6 +15,7 @@ func resourceExternalNetworkIPRange() *schema.Resource {
 	return &schema.Resource{
 		Read:   resourceExternalNetworkIPRangeRead,
 		Update: resourceExternalNetworkIPRangeUpdate,
+		Delete: resourceExternalNetworkIPRangeDelete,
 		Importer: &schema.ResourceImporter{
 			State: schema.ImportStatePassthrough,
 		},
@@ -69,7 +70,7 @@ func resourceExternalNetworkIPRange() *schema.Resource {
 	}
 }
 
-func resourceNetworkIPRangeRead(d *schema.ResourceData, m interface{}) error {
+func resourceExternalNetworkIPRangeRead(d *schema.ResourceData, m interface{}) error {
 	log.Printf("Reading the vra_network_profile resource with name %s", d.Get("name"))
 	apiClient := m.(*Client).apiClient
 
@@ -124,4 +125,23 @@ func resourceExternalNetworkIPRangeUpdate(d *schema.ResourceData, m interface{})
 	log.Printf("finished Updating vra_network_profile resource")
 	return resourceExternalNetworkIPRangeRead(d, m)
 
+}
+
+func resourceExternalNetworkIPRangeDelete(d *schema.ResourceData, m interface{}) error {
+	log.Printf("Starting to delete the vra_network_ip_range resource with name %s", d.Get("name"))
+	apiClient := m.(*Client).apiClient
+
+	id := d.Id()
+
+	networkIPRangeSpecification := models.UpdateExternalNetworkIPRangeSpecification{
+		FabricNetworkID: "",
+	}
+	_, err := apiClient.NetworkIPRange.UpdateExternalNetworkIPRange(network_ip_range.NewUpdateExternalNetworkIPRangeParams().WithID(id).WithBody(&networkIPRangeSpecification))
+	if err != nil {
+		return err
+	}
+
+	d.SetId("")
+	log.Printf("Finished deleting the vra_network_ip_range resource with name %s", d.Get("name"))
+	return nil
 }
